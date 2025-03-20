@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Déclaration de colis</title>
+</head>
+<body>
+
+    <div class="tete">
+        <div class="acceuil">
+            <a href="livraison.html">Accueil</a>
+        </div>
+        <a href="contact.html">Nous contacter</a> 
+        <a href="#">Nos tarifs</a> 
+        <a href="heur d'activité.html">Heures d'activité</a> 
+        <a href="declaration.html"><h3>Déclaration de colis</h3></a>
+    </div>
+
+    <style>
+        body {
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .tete {
+            background-color: antiquewhite;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .moi {
+            background-color: skyblue;
+            border: solid;
+            border-radius: 10px;
+            box-shadow: 6px 6px 0px rgba(0, 0, 0);
+            margin: 30px auto;
+            padding: 20px;
+            width: 50%;
+            text-align: center;
+        }
+
+        input {
+            width: 90%;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: green;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: darkgreen;
+        }
+    </style>
+
+    <div class="moi">
+        <h1>Déclaration de colis</h1>
+        <hr>
+
+        <form id="formDeclaration">
+            <label for="nom">Nom :</label><br>
+            <input type="text" id="nom" placeholder="Votre nom"><br>
+
+            <label for="prenom">Prénom :</label><br>
+            <input type="text" id="prenom" placeholder="Votre prénom"><br>
+
+            <label for="produit">Type de colis :</label><br>
+            <input type="text" id="produit" placeholder="Nom du produit"><br>
+
+            <label for="quantite">Nombre de colis :</label><br>
+            <input type="number" id="quantite" placeholder="Nombre de colis"><br>
+
+            <label for="adresseMaps">Adresse Google Maps :</label><br>
+            <input type="text" id="adresseMaps" placeholder="Lien Google Maps"><br>
+
+            <button type="button" id="envoyerWhatsapp">Envoyer sur WhatsApp</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("envoyerWhatsapp").addEventListener("click", function() {
+            var nom = document.getElementById("nom").value;
+            var prenom = document.getElementById("prenom").value;
+            var produit = document.getElementById("produit").value;
+            var quantite = document.getElementById("quantite").value;
+            var adresseMaps = document.getElementById("adresseMaps").value;
+
+            if (nom.trim() === "" || prenom.trim() === "" || produit.trim() === "" || quantite.trim() === "" || adresseMaps.trim() === "") {
+                alert("Veuillez remplir tous les champs !");
+                return;
+            }
+
+            var message = `Bonjour, je voudrais déclarer un colis :%0A
+            - 🧑 Nom : ${nom}
+            - 🧑 Prénom : ${prenom}
+            - 📦 Produit : ${produit}
+            - 🔢 Quantité : ${quantite}
+            - 📍 Adresse Maps : ${adresseMaps}`;
+
+            var numeroWhatsApp = "22898350449"; // Remplace par ton numéro WhatsApp
+            var lien = "https://wa.me/" + numeroWhatsApp + "?text=" + encodeURIComponent(message);
+
+            window.location.href = lien;
+        });
+    </script>
+
+</body>
+</html>

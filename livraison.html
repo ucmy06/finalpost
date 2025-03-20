@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galerie Produits</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .tete {
+            background-color: antiquewhite;
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            flex-wrap: wrap;
+        }
+
+        .tete a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            margin: 10px;
+        }
+
+        .galerie {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .produit {
+            width: 200px;
+            text-align: center;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .produit:hover {
+            transform: scale(1.05);
+        }
+
+        .produit img {
+            width: 100%;
+            border-radius: 10px;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .prix {
+            font-weight: bold;
+            color: #d9534f;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 600px) {
+            .galerie {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="tete">
+        <a href="livraison.html">Accueil</a>
+        <a href="contact.html">Nous contacter</a> 
+        <a href="#">Nos tarifs</a> 
+        <a href="heur d'activité.html">Heures d'activité</a> 
+        <a href="declaration.html">Déclaration de colis</a> 
+    </div>
+
+    <div class="galerie">
+        <div class="produit"><img src="pose1.jpg" alt="Produit 1"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose2.jpg" alt="Produit 2"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose1.jpg" alt="Produit 3"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose1.jpg" alt="Produit 1"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose2.jpg" alt="Produit 2"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose1.jpg" alt="Produit 3"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose1.jpg" alt="Produit 1"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose2.jpg" alt="Produit 2"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose1.jpg" alt="Produit 3"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose1.jpg" alt="Produit 1"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose2.jpg" alt="Produit 2"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose1.jpg" alt="Produit 3"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose1.jpg" alt="Produit 1"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose2.jpg" alt="Produit 2"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose1.jpg" alt="Produit 3"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose1.jpg" alt="Produit 1"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose2.jpg" alt="Produit 2"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose1.jpg" alt="Produit 3"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose1.jpg" alt="Produit 3"><div class="prix">1500 FCFA</div></div>
+        <div class="produit"><img src="pose1.jpg" alt="Produit 3"><div class="prix">1500 FCFA</div></div>
+
+
+    </div>
+</body>
+</html>
