@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Vidéos</title>
+    <style>
+        body {
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .tete {
+            background-color: antiquewhite;
+            height: 70px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .video {
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="tete">
+        <a href="livraison.html">Accueil</a>
+        <a href="contact.html">Nous contacter</a>
+        <a href="NosVideo.html">Nos vidéos</a>
+        <a href="HeurActiviter.html">Heures d'activité</a>
+        <a href="declaration.html">Déclaration de colis</a>
+    </div>
+
+    <h2>Retrouvez nos vidéos ici</h2>
+    <div class="video-container">
+        <video class="video" controls>
+            <source src="vid.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la lecture de vidéos.
+        </video>
+        <video class="video" controls>
+            <source src="vide.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la lecture de vidéos.
+        </video>
+    </div>
+</body>
+</html>
