@@ -108,7 +108,12 @@
                 alert("Veuillez remplir tous les champs !");
                 return;
             }
-            var message = `Bonjour, je voudrais déclarer un colis :%0A- 🧑 Nom : ${nom}%0A- 🧑 Prénom : ${prenom}%0A- 📦 Produit : ${produit}%0A- 🔢 Quantité : ${quantite}%0A- 📍 Adresse Maps : ${adresseMaps}`;
+            var message = `Bonjour, je voudrais déclarer un colis :
+            -🧑 Nom : ${nom}
+            - 🧑 Prénom : ${prenom}
+            - 📦 Produit : ${produit}
+            - 🔢 Quantité : ${quantite}
+            - 📍 Adresse Maps : ${adresseMaps}`;
             var numeroWhatsApp = "22898350449";
             var lien = "https://wa.me/" + numeroWhatsApp + "?text=" + encodeURIComponent(message);
             window.location.href = lien;
