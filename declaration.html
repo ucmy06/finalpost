@@ -3,29 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
     <title>Déclaration de colis</title>
-</head>
-<body>
-
-    <div class="tete">
-        <div class="acceuil">
-            <a href="livraison.html">Accueil</a>
-        </div>
-        <a href="contact.html">Nous contacter</a> 
-        <a href="#">Nos tarifs</a> 
-        <a href="heur d'activité .html"> heur d'activité</a> 
-        <a href="declaration.html"><h3>Déclaration de colis</h3></a>
-    </div>
-
     <style>
         body {
+            font-family: Arial, sans-serif;
             background-size: cover;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
         }
-
         .tete {
             background-color: antiquewhite;
             height: 70px;
@@ -34,7 +19,6 @@
             align-items: center;
             padding: 0 20px;
         }
-
         .moi {
             background-color: skyblue;
             border: solid;
@@ -45,15 +29,13 @@
             width: 50%;
             text-align: center;
         }
-
-        input {
+        input, select {
             width: 90%;
             padding: 8px;
             margin: 5px 0;
             border-radius: 5px;
             border: 1px solid #ccc;
         }
-
         button {
             background-color: green;
             color: white;
@@ -64,62 +46,73 @@
             width: 100%;
             border-radius: 5px;
         }
-
         button:hover {
             background-color: darkgreen;
         }
     </style>
-
+</head>
+<body>
+    <div class="tete">
+        <a href="livraison.html">Accueil</a>
+        <a href="contact.html">Nous contacter</a> 
+        <a href="#">Nos tarifs</a> 
+        <a href="heur d'activite.html">Heures d'activité</a> 
+        <a href="declaration.html">Déclaration de colis</a>
+    </div>
     <div class="moi">
         <h1>Déclaration de colis</h1>
         <hr>
-
         <form id="formDeclaration">
-            <label for="nom">Nom :</label><br>
-            <input type="text" id="nom" placeholder="Votre nom"><br>
-
-            <label for="prenom">Prénom :</label><br>
-            <input type="text" id="prenom" placeholder="Votre prénom"><br>
-
-            <label for="produit">Type de colis :</label><br>
-            <input type="text" id="produit" placeholder="Nom du produit"><br>
-
-            <label for="quantite">Nombre de colis :</label><br>
-            <input type="number" id="quantite" placeholder="Nombre de colis"><br>
-
-            <label for="adresseMaps">Adresse Google Maps :</label><br>
-            <input type="text" id="adresseMaps" placeholder="Lien Google Maps"><br>
-
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" placeholder="Votre nom">
+            <label for="prenom">Prénom :</label>
+            <input type="text" id="prenom" placeholder="Votre prénom">
+            <label for="produit">Type de colis :</label>
+            <select id="produit">
+                <option value="">Sélectionnez un type</option>
+                <option value="Electronique">Électronique</option>
+                <option value="Vêtements">Vêtements</option>
+                <option value="Documents">Documents</option>
+                <!-- Tu peux ajouter d'autres options ici -->
+            </select>
+            <label for="quantite">Nombre de colis :</label>
+            <input type="number" id="quantite" placeholder="Nombre de colis">
+            <label for="adresseMaps">Adresse Google Maps :</label>
+            <input type="text" id="adresseMaps" placeholder="Lien Google Maps">
+            <button type="button" onclick="getLocation()">Utiliser ma position</button>
             <button type="button" id="envoyerWhatsapp">Envoyer sur WhatsApp</button>
         </form>
     </div>
-
     <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    const googleMapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+                    document.getElementById("adresseMaps").value = googleMapsLink;
+                }, function(error) {
+                    alert("Impossible d'obtenir la localisation : " + error.message);
+                });
+            } else {
+                alert("La géolocalisation n'est pas supportée par votre navigateur.");
+            }
+        }
         document.getElementById("envoyerWhatsapp").addEventListener("click", function() {
             var nom = document.getElementById("nom").value;
             var prenom = document.getElementById("prenom").value;
             var produit = document.getElementById("produit").value;
             var quantite = document.getElementById("quantite").value;
             var adresseMaps = document.getElementById("adresseMaps").value;
-
-            if (nom.trim() === "" || prenom.trim() === "" || produit.trim() === "" || quantite.trim() === "" || adresseMaps.trim() === "") {
+            if (!nom || !prenom || !produit || !quantite || !adresseMaps) {
                 alert("Veuillez remplir tous les champs !");
                 return;
             }
-
-            var message = `Bonjour, je voudrais déclarer un colis :%0A
-            - 🧑 Nom : ${nom}
-            - 🧑 Prénom : ${prenom}
-            - 📦 Produit : ${produit}
-            - 🔢 Quantité : ${quantite}
-            - 📍 Adresse Maps : ${adresseMaps}`;
-
-            var numeroWhatsApp = "22898350449"; // Remplace par ton numéro WhatsApp
+            var message = `Bonjour, je voudrais déclarer un colis :%0A- 🧑 Nom : ${nom}%0A- 🧑 Prénom : ${prenom}%0A- 📦 Produit : ${produit}%0A- 🔢 Quantité : ${quantite}%0A- 📍 Adresse Maps : ${adresseMaps}`;
+            var numeroWhatsApp = "22898350449";
             var lien = "https://wa.me/" + numeroWhatsApp + "?text=" + encodeURIComponent(message);
-
             window.location.href = lien;
         });
     </script>
-
 </body>
 </html>

@@ -6,12 +6,11 @@
     <title>Galerie Produits</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
         }
-
         .tete {
             background-color: antiquewhite;
             height: 70px;
@@ -21,14 +20,12 @@
             padding: 0 20px;
             flex-wrap: wrap;
         }
-
         .tete a {
             text-decoration: none;
             color: black;
             font-weight: bold;
             margin: 10px;
         }
-
         .galerie {
             display: flex;
             flex-wrap: wrap;
@@ -36,7 +33,6 @@
             gap: 15px;
             padding: 20px;
         }
-
         .produit {
             width: 200px;
             text-align: center;
@@ -47,29 +43,53 @@
             cursor: pointer;
             transition: transform 0.3s;
         }
-
         .produit:hover {
             transform: scale(1.05);
         }
-
         .produit img {
             width: 100%;
             border-radius: 10px;
             height: 150px;
             object-fit: cover;
         }
-
         .prix {
             font-weight: bold;
             color: #d9534f;
             margin-top: 5px;
         }
-
-        @media (max-width: 600px) {
-            .galerie {
-                flex-direction: column;
-                align-items: center;
-            }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+        }
+        .popup img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .popup button {
+            margin-top: 10px;
+            padding: 10px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .popup button:hover {
+            background: darkgreen;
         }
     </style>
 </head>
@@ -78,33 +98,77 @@
         <a href="livraison.html">Accueil</a>
         <a href="contact.html">Nous contacter</a> 
         <a href="#">Nos tarifs</a> 
-        <a href="heur d'activité .html"> heur d'activité</a> 
+        <a href="heur d'activite.html">Heures d'activité</a> 
         <a href="declaration.html">Déclaration de colis</a> 
     </div>
-
     <div class="galerie">
-        <div class="produit"><img src="pose1.jpg" alt="Produit 1"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose2.jpg" alt="Produit 2"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose1.jpg" alt="Produit 3"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose1.jpg" alt="Produit 1"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose2.jpg" alt="Produit 2"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose1.jpg" alt="Produit 3"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose1.jpg" alt="Produit 1"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose2.jpg" alt="Produit 2"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose1.jpg" alt="Produit 3"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose1.jpg" alt="Produit 1"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose2.jpg" alt="Produit 2"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose1.jpg" alt="Produit 3"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose1.jpg" alt="Produit 1"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose2.jpg" alt="Produit 2"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose1.jpg" alt="Produit 3"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose1.jpg" alt="Produit 1"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose2.jpg" alt="Produit 2"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose1.jpg" alt="Produit 3"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose1.jpg" alt="Produit 3"><div class="prix">1500 FCFA</div></div>
-        <div class="produit"><img src="pose1.jpg" alt="Produit 3"><div class="prix">1500 FCFA</div></div>
+        <div class="produit" onclick="afficherProduit('pose1.jpg', 'Produit 1', '1500 FCFA')">
+            <img src="pose1.jpg" alt="Produit 1">
+            <div class="prix">1500 FCFA</div>
+        </div>
+        <div class="produit" onclick="afficherProduit('pose2.jpg', 'Produit 2', '1800 FCFA')">
+            <img src="pose2.jpg" alt="Produit 2">
+            <div class="prix">1800 FCFA</div>
+        </div>
 
+        <div class="produit" onclick="afficherProduit('pose1.jpg', 'Produit 1', '1500 FCFA')">
+            <img src="pose1.jpg" alt="Produit 1">
+            <div class="prix">1500 FCFA</div>
+        </div>
 
+        <div class="produit" onclick="afficherProduit('pose1.jpg', 'Produit 1', '1500 FCFA')">
+            <img src="pose1.jpg" alt="Produit 1">
+            <div class="prix">1500 FCFA</div>
+        </div>
+
+        <div class="produit" onclick="afficherProduit('pose1.jpg', 'Produit 1', '1500 FCFA')">
+            <img src="pose1.jpg" alt="Produit 1">
+            <div class="prix">1500 FCFA</div>
+        </div>
+        
+        <div class="produit" onclick="afficherProduit('pose2.jpg', 'Produit 2', '1800 FCFA')">
+            <img src="pose2.jpg" alt="Produit 2">
+            <div class="prix">1800 FCFA</div>
+        </div>
+        <div class="produit" onclick="afficherProduit('pose2.jpg', 'Produit 2', '1800 FCFA')">
+            <img src="pose2.jpg" alt="Produit 2">
+            <div class="prix">1800 FCFA</div>
+        </div>
+        <div class="produit" onclick="afficherProduit('pose2.jpg', 'Produit 2', '1800 FCFA')">
+            <img src="pose2.jpg" alt="Produit 2">
+            <div class="prix">1800 FCFA</div>
+        </div>
+        <div class="produit" onclick="afficherProduit('pose2.jpg', 'Produit 2', '1800 FCFA')">
+            <img src="pose2.jpg" alt="Produit 2">
+            <div class="prix">1800 FCFA</div>
+        </div>
+        <div class="produit" onclick="afficherProduit('pose2.jpg', 'Produit 2', '1800 FCFA')">
+            <img src="pose2.jpg" alt="Produit 2">
+            <div class="prix">1800 FCFA</div>
+        </div>
     </div>
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <img id="popup-img" src="" alt="">
+            <h2 id="popup-titre"></h2>
+            <p id="popup-prix"></p>
+            <button onclick="redirigerCommande()">Lancer la commande</button>
+            <button onclick="fermerPopup()">Fermer</button>
+        </div>
+    </div>
+    <script>
+        function afficherProduit(image, titre, prix) {
+            document.getElementById("popup-img").src = image;
+            document.getElementById("popup-titre").innerText = titre;
+            document.getElementById("popup-prix").innerText = prix;
+            document.getElementById("popup").style.display = "flex";
+        }
+        function fermerPopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+        function redirigerCommande() {
+            window.location.href = "declaration.html";
+        }
+    </script>
 </body>
 </html>
