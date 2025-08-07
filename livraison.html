@@ -1,180 +1,761 @@
-
-<!-- C:\Users\USER\Downloads\new\colis-main\livraison.html -->
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galerie Produits</title>
+    <title>ColisExpress - Accueil</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        .tete {
-            background-color: antiquewhite;
-            height: 70px;
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header moderne avec glassmorphism */
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
-            flex-wrap: wrap;
-        }
-        .galerie {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: auto;
-        }
-        .produit {
-            background: white;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            transition: transform 0.3s;
-            text-align: center;
-        }
-        .produit:hover {
-            transform: scale(1.05);
-        }
-        .produit img {
-            width: 100%;
-            border-radius: 10px;
-            height: 150px;
-            object-fit: cover;
-        }
-        .prix {
-            font-weight: bold;
-            color: #d9534f;
-            margin-top: 5px;
-        }
-        .popup {
-            display: none;
-            position: fixed;
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            justify-content: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
             align-items: center;
         }
-        .popup-content {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
+
+        .nav-item {
+            position: relative;
         }
-        .popup img {
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
             width: 100%;
-            border-radius: 10px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
         }
-        .popup button {
-            margin-top: 10px;
-            padding: 10px;
-            background: green;
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Menu burger pour mobile */
+        .burger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .burger.active div:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .burger.active div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger.active div:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            color: white;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            animation: slideInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: slideInUp 1s ease 0.3s both;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 8px 25px rgba(238, 90, 36, 0.3);
+            animation: slideInUp 1s ease 0.6s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(238, 90, 36, 0.4);
+        }
+
+        /* Section Services */
+        .services {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .service-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            display: block;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Floating action button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
             color: white;
             border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
             cursor: pointer;
+            box-shadow: 0 8px 25px rgba(238, 90, 36, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
         }
-        .popup button:hover {
-            background: darkgreen;
+
+        .fab:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 35px rgba(238, 90, 36, 0.4);
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+                border-radius: 0 0 20px 20px;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .burger {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+                margin: 1rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+
+        /* Particules flottantes */
+        .particle {
+            position: fixed;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg) scale(1); 
+                opacity: 0.7;
+            }
+            50% { 
+                transform: translateY(-20px) rotate(180deg) scale(1.1); 
+                opacity: 1;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="tete">
-        <a href="livraison.html">Accueil</a>
-        <a href="contact.html">Nous contacter</a> 
-        <a href="NosVideo.html">Nos vidéos</a> 
-        <a href="HeurActiviter.html">Heures d'activité</a> 
-        <a href="declaration.html">Déclaration de colis</a> 
-    </div>
-    <div class="galerie">
-        <div class="produit" onclick="afficherProduit('pose1.jpg', 'Pose Téléphone', '1500 FCFA')">
-            <img src="pose1.jpg" alt="Pose Téléphone">
-            <div class="prix">1500 FCFA</div>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="logo">
+            <i class="fas fa-shipping-fast"></i> ColisExpress
         </div>
-        <div class="produit" onclick="afficherProduit('pose2.jpg', 'Produit 2', '1500 FCFA')">
-            <img src="pose2.jpg" alt="Produit 2">
-            <div class="prix">1500 FCFA</div>
+        <nav>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="livraison.html" class="nav-link active">
+                        <i class="fas fa-home"></i> Accueil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link">
+                        <i class="fas fa-phone"></i> Contact
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="NosVideo.html" class="nav-link">
+                        <i class="fas fa-video"></i> Nos Vidéos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="HeurActiviter.html" class="nav-link">
+                        <i class="fas fa-clock"></i> Horaires
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="declaration.html" class="nav-link">
+                        <i class="fas fa-package"></i> Déclaration
+                    </a>
+                </li>
+            </ul>
+            <div class="burger" id="burger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Livraison Rapide & Sécurisée</h1>
+        <p>Découvrez notre gamme complète de produits tech et profitez d'une livraison express dans toute la région. Service client disponible 24h/7j.</p>
+        <a href="#produits" class="cta-button">
+            <i class="fas fa-shopping-cart"></i> Voir nos Produits
+        </a>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stat-item">
+            <span class="stat-number">1000+</span>
+            <span class="stat-label">Clients Satisfaits</span>
         </div>
-        <div class="produit" onclick="afficherProduit('pose3.jpg', 'Produit 3', '1500 FCFA')">
-            <img src="pose3.jpg" alt="Produit 3">
-            <div class="prix">1500 FCFA</div>
+        <div class="stat-item">
+            <span class="stat-number">24h</span>
+            <span class="stat-label">Livraison Express</span>
         </div>
-        <div class="produit" onclick="afficherProduit('pose4.jpg', 'Produit 4', '1500 FCFA')">
-            <img src="pose4.jpg" alt="Produit 4">
-            <div class="prix">1500 FCFA</div>
+        <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Sécurisé</span>
         </div>
-        <div class="produit" onclick="afficherProduit('pose5.jpg', 'Produit 5', '1500 FCFA')">
-            <img src="pose5.jpg" alt="Produit 5">
-            <div class="prix">1500 FCFA</div>
+        <div class="stat-item">
+            <span class="stat-number">50+</span>
+            <span class="stat-label">Produits</span>
         </div>
-        <div class="produit" onclick="afficherProduit('pose6.jpg', 'Produit 6', '1500 FCFA')">
-            <img src="pose6.jpg" alt="Produit 6">
-            <div class="prix">1500 FCFA</div>
+    </section>
+
+    <!-- Section Services -->
+    <section class="services" id="services">
+        <h2 class="section-title">
+            <i class="fas fa-star"></i> Pourquoi Nous Choisir ?
+        </h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <h3 class="service-title">Livraison Rapide</h3>
+                <p class="service-description">
+                    Livraison express en moins de 24h dans toute la région. 
+                    Suivi en temps réel de votre commande.
+                </p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="service-title">100% Sécurisé</h3>
+                <p class="service-description">
+                    Tous nos produits sont authentiques et garantis. 
+                    Paiement sécurisé et protection des données.
+                </p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3 class="service-title">Support 24/7</h3>
+                <p class="service-description">
+                    Notre équipe est disponible 24h/24 et 7j/7 
+                    pour répondre à toutes vos questions.
+                </p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-undo-alt"></i>
+                </div>
+                <h3 class="service-title">Retour Gratuit</h3>
+                <p class="service-description">
+                    Pas satisfait ? Retour gratuit sous 30 jours. 
+                    Remboursement intégral garanti.
+                </p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-tags"></i>
+                </div>
+                <h3 class="service-title">Prix Compétitifs</h3>
+                <p class="service-description">
+                    Les meilleurs prix du marché avec des promotions 
+                    régulières sur tous nos produits.
+                </p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3 class="service-title">Localisation GPS</h3>
+                <p class="service-description">
+                    Utilisez votre position GPS pour une livraison 
+                    précise et rapide à votre adresse.
+                </p>
+            </div>
         </div>
-        <div class="produit" onclick="afficherProduit('pose7.jpg', 'Produit 7', '1500 FCFA')">
-            <img src="pose7.jpg" alt="Produit 7">
-            <div class="prix">1500 FCFA</div>
+
+        <!-- CTA vers les produits -->
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="declaration.html" class="cta-button" id="produits">
+                <i class="fas fa-shopping-bag"></i> Voir Tous nos Produits
+            </a>
         </div>
-        <div class="galerie">
-        <div class="produit" onclick="afficherProduit('images(1).jpeg', 'souris sans fil', '2500 FCFA')">
-            <img src="images(1).jpeg" alt="Pose Téléphone">
-            <div class="prix">2500 FCFA</div>
-        </div>
-        <div class="galerie">
-        <div class="produit" onclick="afficherProduit('images(2).jpeg', 'souris sans fil', '2500 FCFA')">
-            <img src="images(2).jpeg" alt="Pose Téléphone">
-            <div class="prix">2500 FCFA</div>
-        </div>
-        <div class="galerie">
-        <div class="produit" onclick="afficherProduit('images(3).jpeg', 'souris sans fil', '2500 FCFA')">
-            <img src="images(3).jpeg" alt="Pose Téléphone">
-            <div class="prix">2500 FCFA</div>
-        </div>
-        <div class="galerie">
-        <div class="produit" onclick="afficherProduit('images(4).jpeg', 'souris sans fil', '2500 FCFA')">
-            <img src="images(4).jpeg" alt="Pose Téléphone">
-            <div class="prix">2500 FCFA</div>
-        </div>
-        <div class="galerie">
-        <div class="produit" onclick="afficherProduit('images.jpeg', 'souris sans fil', '2500 FCFA')">
-            <img src="images.jpeg" alt="Pose Téléphone">
-            <div class="prix">2500 FCFA</div>
-        </div>
-    </div>
-    <div class="popup" id="popup">
-        <div class="popup-content">
-            <img id="popup-img" src="" alt="">
-            <h2 id="popup-titre"></h2>
-            <p id="popup-prix"></p>
-            <button onclick="redirigerCommande()">Lancer la commande</button>
-            <button onclick="fermerPopup()">Fermer</button>
-        </div>
-    </div>
+    </section>
+
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="scrollToTop()" title="Retour en haut">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script>
-        function afficherProduit(image, titre, prix) {
-            document.getElementById("popup-img").src = image;
-            document.getElementById("popup-titre").innerText = titre;
-            document.getElementById("popup-prix").innerText = prix;
-            document.getElementById("popup").style.display = "flex";
+        // Menu burger
+        const burger = document.getElementById('burger');
+        const navMenu = document.getElementById('nav-menu');
+
+        burger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            burger.classList.toggle('active');
+        });
+
+        // Fermer le menu mobile au clic sur un lien
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                burger.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                if (scrollTop > lastScrollTop) {
+                    header.style.transform = 'translateY(-100%)';
+                } else {
+                    header.style.transform = 'translateY(0)';
+                }
+            }
+            lastScrollTop = scrollTop;
+
+            // Header background opacity
+            const opacity = Math.min(scrollTop / 100, 0.95);
+            header.style.background = `rgba(255, 255, 255, ${opacity * 0.1})`;
+            header.style.borderColor = `rgba(255, 255, 255, ${opacity * 0.2})`;
+        });
+
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .stat-item').forEach((element, index) => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(element);
+        });
+
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
-        function fermerPopup() {
-            document.getElementById("popup").style.display = "none";
+
+        // Show/hide FAB based on scroll
+        window.addEventListener('scroll', () => {
+            const fab = document.querySelector('.fab');
+            if (window.pageYOffset > 300) {
+                fab.style.opacity = '1';
+                fab.style.visibility = 'visible';
+            } else {
+                fab.style.opacity = '0';
+                fab.style.visibility = 'hidden';
+            }
+        });
+
+        // Créer des particules flottantes
+        function createParticles() {
+            const particleCount = 15;
+            const body = document.body;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 8 + 4;
+                const left = Math.random() * window.innerWidth;
+                const delay = Math.random() * 6;
+                
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = left + 'px';
+                particle.style.top = Math.random() * window.innerHeight + 'px';
+                particle.style.animationDelay = delay + 's';
+                
+                body.appendChild(particle);
+            }
         }
-        function redirigerCommande() {
-            window.location.href = "declaration.html";
+
+        // Animation des chiffres
+        function animateNumbers() {
+            const numbers = document.querySelectorAll('.stat-number');
+            numbers.forEach(number => {
+                const finalValue = number.textContent;
+                if (finalValue.includes('+')) {
+                    const numValue = parseInt(finalValue.replace(/\D/g, ''));
+                    animateValue(number, 0, numValue, 2000, '+');
+                } else if (finalValue.includes('%')) {
+                    const numValue = parseInt(finalValue.replace(/\D/g, ''));
+                    animateValue(number, 0, numValue, 2000, '%');
+                } else if (finalValue.includes('h')) {
+                    // Pas d'animation pour "24h"
+                }
+            });
         }
+
+        function animateValue(element, start, end, duration, suffix = '') {
+            const range = end - start;
+            const minTimer = 50;
+            const stepTime = Math.abs(Math.floor(duration / range));
+            
+            const startTime = new Date().getTime();
+            const endTime = startTime + duration;
+            
+            const timer = setInterval(() => {
+                const now = new Date().getTime();
+                const remaining = Math.max((endTime - now) / duration, 0);
+                const value = Math.round(end - (remaining * range));
+                element.textContent = value + suffix;
+                
+                if (value === end) {
+                    clearInterval(timer);
+                }
+            }, stepTime);
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            
+            // Observer pour les animations des chiffres
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateNumbers();
+                        statsObserver.disconnect();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            const statsSection = document.querySelector('.stats');
+            if (statsSection) {
+                statsObserver.observe(statsSection);
+            }
+
+            // Animation de chargement des cartes
+            setTimeout(() => {
+                document.querySelectorAll('.service-card').forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.animation = `slideInUp 0.6s ease both`;
+                    }, index * 100);
+                });
+            }, 500);
+        });
+
+        // Effet parallax léger sur les particules
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const particles = document.querySelectorAll('.particle');
+            
+            particles.forEach((particle, index) => {
+                const speed = 0.2 + (index % 3) * 0.1;
+                const yPos = -(scrolled * speed);
+                particle.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+
+        // Mise à jour des particules lors du redimensionnement
+        window.addEventListener('resize', () => {
+            document.querySelectorAll('.particle').forEach(particle => {
+                particle.style.left = Math.random() * window.innerWidth + 'px';
+            });
+        });
+
+        // CSS pour l'animation ripple sur les boutons
+        const style = document.createElement('style');
+        style.textContent = `
+            .cta-button, .fab {
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .fab {
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>

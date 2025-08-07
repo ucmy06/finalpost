@@ -1,71 +1,1250 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>contact</title>
-</head>
-<body>
-
-    <div class="tete" >
-       <div class="acceuil">
-       <a href="livraison.html">acceuil</a> </div>
-      <a href="contact.html"> nous contacté</a> 
-      <a href="NosVideo.html">nos tarif</a> 
-      <a href="heur d'activité .html"> <h3>heur d'activité</h3></a> 
-      <a href="declaration.html"> déclaration de colie </a> 
-
-
-
-    </div>
-
-
+    <title>ColisExpress - Nos Produits</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        
-
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-background-size: cover;
-background-opacity: 0.5;
-margin: 0;
-padding: 0;
-font-family: Arial, sans-serif;
-}
-        .tete {
-            background-color: antiquewhite;
-            height: 70px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header moderne avec glassmorphism */
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
-}
-        .acceuil{
-            
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
         }
-        p {
-  font-size: 16px;
-  color: #333;
-  background-color: #f2f2f2;
-  padding: 10px;
-  border: 1px solid #ccc;
-}
 
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
 
-    </style>
-      
-      <p id="activity-hours">Nos heures d'activité sont du lundi au vendredi, de 7h30 à 20h00.</p>
-        <script>
-            function changeTextColorRandomly() {
-                const textElement = document.getElementById("activity-hours");
-                const colors = ["red", "blue", "green", "purple", "teal"];
-                const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                textElement.style.color = randomColor;
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Menu burger pour mobile */
+        .burger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section - Produits */
+        .hero-products {
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+            color: white;
+        }
+
+        .hero-products h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            animation: slideInUp 1s ease;
+        }
+
+        .hero-products p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            animation: slideInUp 1s ease 0.3s both;
+        }
+
+        /* Filtres de recherche */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            padding: 0 2rem;
+        }
+
+        .filter-button {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .filter-button:hover,
+        .filter-button.active {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Galerie de produits moderne */
+        .products-section {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .product-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #999;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .product-button {
+            flex: 1;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.8rem 1rem;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .product-button:hover {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .product-button.secondary {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+        }
+
+        .product-button.secondary:hover {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
+        }
+
+        /* Badge promotion */
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(238, 90, 36, 0.3);
+        }
+
+        /* Modal moderne */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            animation: slideInScale 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: #f0f0f0;
+            color: #e74c3c;
+        }
+
+        .modal img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-price {
+            font-size: 1.5rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .modal-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-button {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .order-button {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+        }
+
+        .view-button {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+        }
+
+        .modal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Floating action button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(238, 90, 36, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 35px rgba(238, 90, 36, 0.4);
+        }
+
+        /* Loading skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
             }
-    
-            // Appel de la fonction pour changer la couleur toutes les 5 secondes
-            setInterval(changeTextColorRandomly, 5000);
-        </script>
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% {
+                animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+                transform: translate3d(0,0,0);
+            }
+            40%, 43% {
+                animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+                transform: translate3d(0, -10px, 0);
+            }
+            70% {
+                animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+                transform: translate3d(0, -5px, 0);
+            }
+            90% {
+                transform: translate3d(0,-2px,0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+                border-radius: 0 0 20px 20px;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .burger {
+                display: flex;
+            }
+
+            .hero-products h1 {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1rem;
+                padding: 0.5rem;
+            }
+
+            .filters {
+                gap: 0.5rem;
+                padding: 0 1rem;
+            }
+
+            .filter-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-products h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Particules flottantes */
+        .particle {
+            position: fixed;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg) scale(1); 
+                opacity: 0.7;
+            }
+            50% { 
+                transform: translateY(-20px) rotate(180deg) scale(1.1); 
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="logo">
+            <i class="fas fa-shipping-fast"></i> ColisExpress
+        </div>
+        <nav>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="livraison.html" class="nav-link">
+                        <i class="fas fa-home"></i> Accueil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link">
+                        <i class="fas fa-phone"></i> Contact
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="NosVideo.html" class="nav-link">
+                        <i class="fas fa-video"></i> Nos Vidéos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="HeurActiviter.html" class="nav-link">
+                        <i class="fas fa-clock"></i> Horaires
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="declaration.html" class="nav-link">
+                        <i class="fas fa-package"></i> Déclaration
+                    </a>
+                </li>
+            </ul>
+            <div class="burger" id="burger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section Produits -->
+    <section class="hero-products">
+        <h1><i class="fas fa-shopping-bag"></i> Notre Catalogue</h1>
+        <p>Découvrez notre sélection de produits tech de qualité à prix compétitifs</p>
+    </section>
+
+    <!-- Filtres -->
+    <div class="filters">
+        <button class="filter-button active" data-filter="all">
+            <i class="fas fa-th"></i> Tous
+        </button>
+        <button class="filter-button" data-filter="supports">
+            <i class="fas fa-mobile-alt"></i> Supports
+        </button>
+        <button class="filter-button" data-filter="souris">
+            <i class="fas fa-mouse"></i> Souris
+        </button>
+        <button class="filter-button" data-filter="audio">
+            <i class="fas fa-headphones"></i> Audio
+        </button>
+        <button class="filter-button" data-filter="accessoires">
+            <i class="fas fa-plug"></i> Accessoires
+        </button>
+    </div>
+
+    <!-- Section Produits -->
+    <section class="products-section">
+        <div class="products-grid" id="products-grid">
+            <!-- Support téléphone 1 -->
+            <div class="product-card" data-category="supports" onclick="showProduct('📱', 'Support Téléphone Premium', '1500 FCFA', 'Support téléphone réglable en aluminium avec rotation 360°. Compatible avec tous les smartphones de 4 à 8 pouces.')">
+                <div class="product-badge">Popular</div>
+                <div class="product-image">📱</div>
+                <h3 class="product-title">Support Téléphone Premium</h3>
+                <p class="product-price">1500 FCFA</p>
+                <div class="product-actions">
+                    <button class="product-button">
+                        <i class="fas fa-eye"></i> Voir
+                    </button>
+                </div>
+            </div>
+
+            <!-- Support téléphone 2 -->
+            <div class="product-card" data-category="supports" onclick="showProduct('📱', 'Support Téléphone Pliable', '1500 FCFA', 'Support téléphone pliable et portable, parfait pour les voyages. Design compact et élégant.')">
+                <div class="product-image">📱</div>
+                <h3 class="product-title">Support Téléphone Pliable</h3>
+                <p class="product-price">1500 FCFA</p>
+                <div class="product-actions">
+                    <button class="product-button">
+                        <i class="fas fa-eye"></i> Voir
+                    </button>
+                </div>
+            </div>
+
+            <!-- Souris sans fil 1 -->
+            <div class="product-card" data-category="souris" onclick="showProduct('🖱️', 'Souris Sans Fil Gaming', '2500 FCFA', 'Souris gaming sans fil avec capteur optique haute précision. Batterie longue durée et design ergonomique.')">
+                <div class="product-badge">Nouveau</div>
+                <div class="product-image">🖱️</div>
+                <h3 class="product-title">Souris Sans Fil Gaming</h3>
+                <p class="product-price">2500 FCFA</p>
+                <div class="product-actions">
+                    <button class="product-button">
+                        <i class="fas fa-eye"></i> Voir
+                    </button>
+                </div>
+            </div>
+
+            <!-- Souris sans fil 2 -->
+            <div class="product-card" data-category="souris" onclick="showProduct('🖱️', 'Souris Ergonomique', '2500 FCFA', 'Souris sans fil ergonomique pour un confort optimal. Idéale pour le travail de bureau prolongé.')">
+                <div class="product-image">🖱️</div>
+                <h3 class="product-title">Souris Ergonomique</h3>
+                <p class="product-price">2500 FCFA</p>
+                <div class="product-actions">
+                    <button class="product-button">
+                        <i class="fas fa-eye"></i> Voir
+                    </button>
+                </div>
+            </div>
+
+            <!-- Casque audio -->
+            <div class="product-card" data-category="audio" onclick="showProduct('🎧', 'Casque Audio Bluetooth', '3500 FCFA', 'Casque audio Bluetooth avec réduction de bruit active. Son haute qualité et confort optimal pour des heures d\'écoute.')">
+                <div class="product-badge">Promo</div>
+                <div class="product-image">🎧</div>
+                <h3 class="product-title">Casque Audio Bluetooth</h3>
+                <p class="product-price">3500 FCFA</p>
+                <div class="product-actions">
+                    <button class="product-button">
+                        <i class="fas fa-eye"></i> Voir
+                    </button>
+                </div>
+            </div>
+
+            <!-- Écouteurs -->
+            <div class="product-card" data-category="audio" onclick="showProduct('🎵', 'Écouteurs Sans Fil', '2800 FCFA', 'Écouteurs sans fil avec étui de charge. Autonomie de 24h et résistance à l\'eau IPX7.')">
+                <div class="product-image">🎵</div>
+                <h3 class="product-title">Écouteurs Sans Fil</h3>
+                <p class="product-price">2800 FCFA</p>
+                <div class="product-actions">
+                    <button class="product-button">
+                        <i class="fas fa-eye"></i> Voir
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chargeur rapide -->
+            <div class="product-card" data-category="accessoires" onclick="showProduct('🔌', 'Chargeur Rapide USB-C', '2000 FCFA', 'Chargeur rapide 30W avec câble USB-C. Compatible avec la plupart des smartphones et tablettes.')">
+                <div class="product-image">🔌</div>
+                <h3 class="product-title">Chargeur Rapide USB-C</h3>
+                <p class="product-price">2000 FCFA</p>
+                <div class="product-actions">
+                    <button class="product-button">
+                        <i class="fas fa-eye"></i> Voir
+                    </button>
+                </div>
+            </div>
+
+            <!-- Powerbank -->
+            <div class="product-card" data-category="accessoires" onclick="showProduct('🔋', 'Power Bank 20000mAh', '3200 FCFA', 'Batterie externe haute capacité avec charge rapide. Écran LED et double port USB.')">
+                <div class="product-image">🔋</div>
+                <h3 class="product-title">Power Bank 20000mAh</h3>
+                <p class="product-price">3200 FCFA</p>
+                <div class="product-actions">
+                    <button class="product-button">
+                        <i class="fas fa-eye"></i> Voir
+                    </button>
+                </div>
+            </div>
+
+            <!-- Clavier gaming -->
+            <div class="product-card" data-category="accessoires" onclick="showProduct('⌨️', 'Clavier Gaming RGB', '4500 FCFA', 'Clavier mécanique gaming avec rétroéclairage RGB personnalisable. Touches mécaniques et design gamer.')">
+                <div class="product-badge">Gaming</div>
+                <div class="product-image">⌨️</div>
+                <h3 class="product-title">Clavier Gaming RGB</h3>
+                <p class="product-price">4500 FCFA</p>
+                <div class="product-actions">
+                    <button class="product-button">
+                        <i class="fas fa-eye"></i> Voir
+                    </button>
+                </div>
+            </div>
+
+            <!-- Webcam HD -->
+            <div class="product-card" data-category="accessoires" onclick="showProduct('📹', 'Webcam HD 1080p', '3000 FCFA', 'Webcam Full HD avec microphone intégré. Parfaite pour les visioconférences et le streaming.')">
+                <div class="product-image">📹</div>
+                <h3 class="product-title">Webcam HD 1080p</h3>
+                <p class="product-price">3000 FCFA</p>
+                <div class="product-actions">
+                    <button class="product-button">
+                        <i class="fas fa-eye"></i> Voir
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hub USB -->
+            <div class="product-card" data-category="accessoires" onclick="showProduct('🔗', 'Hub USB 7 Ports', '1800 FCFA', 'Hub USB 3.0 avec 7 ports. Idéal pour connecter plusieurs périphériques à votre ordinateur.')">
+                <div class="product-image">🔗</div>
+                <h3 class="product-title">Hub USB 7 Ports</h3>
+                <p class="product-price">1800 FCFA</p>
+                <div class="product-actions">
+                    <button class="product-button">
+                        <i class="fas fa-eye"></i> Voir
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tapis de souris gaming -->
+            <div class="product-card" data-category="accessoires" onclick="showProduct('🎯', 'Tapis Souris Gaming XXL', '1200 FCFA', 'Tapis de souris gaming extra large avec surface optimisée et base antidérapante.')">
+                <div class="product-image">🎯</div>
+                <h3 class="product-title">Tapis Souris Gaming XXL</h3>
+                <p class="product-price">1200 FCFA</p>
+                <div class="product-actions">
+                    <button class="product-button">
+                        <i class="fas fa-eye"></i> Voir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="modal-img" style="font-size: 6rem; margin-bottom: 1rem;"></div>
+            <h3 class="modal-title" id="modal-title"></h3>
+            <p class="modal-price" id="modal-price"></p>
+            <p class="modal-description" id="modal-description"></p>
+            <div class="modal-buttons">
+                <button class="modal-button order-button" onclick="redirectToOrder()">
+                    <i class="fas fa-shopping-cart"></i> Commander
+                </button>
+                <button class="modal-button view-button" onclick="closeModal()">
+                    <i class="fas fa-eye"></i> Continuer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="scrollToTop()" title="Retour en haut">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Variables globales
+        let currentProduct = {};
+        let allProducts = [];
+
+        // Menu burger
+        const burger = document.getElementById('burger');
+        const navMenu = document.getElementById('nav-menu');
+
+        burger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            burger.classList.toggle('active');
+        });
+
+        // Fermer le menu mobile au clic sur un lien
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                burger.classList.remove('active');
+            });
+        });
+
+        // Animation au scroll pour les cartes
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Fonction de filtrage des produits
+        function filterProducts(category) {
+            const products = document.querySelectorAll('.product-card');
+            const filterButtons = document.querySelectorAll('.filter-button');
+
+            // Mettre à jour les boutons actifs
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-filter="${category}"]`).classList.add('active');
+
+            // Filtrer les produits avec animation
+            products.forEach((product, index) => {
+                const productCategory = product.dataset.category;
+                
+                if (category === 'all' || productCategory === category) {
+                    setTimeout(() => {
+                        product.style.display = 'block';
+                        setTimeout(() => {
+                            product.classList.add('visible');
+                        }, 50);
+                    }, index * 100);
+                } else {
+                    product.classList.remove('visible');
+                    setTimeout(() => {
+                        product.style.display = 'none';
+                    }, 300);
+                }
+            });
+        }
+
+        // Event listeners pour les filtres
+        document.querySelectorAll('.filter-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.dataset.filter;
+                filterProducts(filter);
+            });
+        });
+
+        // Fonctions modal
+        function showProduct(icon, title, price, description) {
+            currentProduct = { icon, title, price, description };
+            document.getElementById('modal-img').textContent = icon;
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-price').textContent = price;
+            document.getElementById('modal-description').textContent = description;
+            document.getElementById('modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function redirectToOrder() {
+            // Redirection vers la page de commande avec les données du produit
+            const params = new URLSearchParams({
+                produit: currentProduct.title,
+                prix: currentProduct.price
+            });
+            window.location.href = `declaration.html?${params.toString()}`;
+        }
+
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Fermer modal en cliquant à l'extérieur
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('modal')) {
+                closeModal();
+            }
+        });
+
+        // Fermer modal avec Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Header scroll effect
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                if (scrollTop > lastScrollTop) {
+                    header.style.transform = 'translateY(-100%)';
+                } else {
+                    header.style.transform = 'translateY(0)';
+                }
+            }
+            lastScrollTop = scrollTop;
+
+            // Header background opacity
+            const opacity = Math.min(scrollTop / 100, 0.95);
+            header.style.background = `rgba(255, 255, 255, ${opacity * 0.1})`;
+        });
+
+        // Show/hide FAB based on scroll
+        window.addEventListener('scroll', () => {
+            const fab = document.querySelector('.fab');
+            if (window.pageYOffset > 300) {
+                fab.style.opacity = '1';
+                fab.style.visibility = 'visible';
+            } else {
+                fab.style.opacity = '0';
+                fab.style.visibility = 'hidden';
+            }
+        });
+
+        // Créer des particules flottantes
+        function createParticles() {
+            const particleCount = 12;
+            const body = document.body;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 8 + 4;
+                const left = Math.random() * window.innerWidth;
+                const delay = Math.random() * 6;
+                
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = left + 'px';
+                particle.style.top = Math.random() * window.innerHeight + 'px';
+                particle.style.animationDelay = delay + 's';
+                
+                body.appendChild(particle);
+            }
+        }
+
+        // Animation de chargement des produits
+        function animateProductsLoad() {
+            const products = document.querySelectorAll('.product-card');
+            products.forEach((product, index) => {
+                setTimeout(() => {
+                    observer.observe(product);
+                    product.style.transition = `all 0.6s ease ${index * 0.1}s`;
+                }, 100);
+            });
+        }
+
+        // Effet de recherche en temps réel
+        function addSearchEffect() {
+            const searchInput = document.createElement('input');
+            searchInput.type = 'text';
+            searchInput.placeholder = '🔍 Rechercher un produit...';
+            searchInput.style.cssText = `
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto 2rem;
+                padding: 1rem 1.5rem;
+                border: none;
+                border-radius: 25px;
+                background: rgba(255, 255, 255, 0.9);
+                font-size: 1rem;
+                text-align: center;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+            `;
+
+            const filtersContainer = document.querySelector('.filters');
+            filtersContainer.parentNode.insertBefore(searchInput, filtersContainer);
+
+            searchInput.addEventListener('focus', () => {
+                searchInput.style.boxShadow = '0 12px 35px rgba(0,0,0,0.15)';
+                searchInput.style.transform = 'translateY(-2px)';
+            });
+
+            searchInput.addEventListener('blur', () => {
+                searchInput.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)';
+                searchInput.style.transform = 'translateY(0)';
+            });
+
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const products = document.querySelectorAll('.product-card');
+                
+                products.forEach(product => {
+                    const title = product.querySelector('.product-title').textContent.toLowerCase();
+                    if (title.includes(searchTerm)) {
+                        product.style.display = 'block';
+                        setTimeout(() => product.classList.add('visible'), 50);
+                    } else {
+                        product.classList.remove('visible');
+                        setTimeout(() => product.style.display = 'none', 300);
+                    }
+                });
+            });
+        }
+
+        // Effet de compteur sur les badges
+        function animateBadges() {
+            const badges = document.querySelectorAll('.product-badge');
+            badges.forEach(badge => {
+                badge.addEventListener('mouseenter', () => {
+                    badge.style.animation = 'bounce 0.6s ease';
+                });
+                
+                badge.addEventListener('animationend', () => {
+                    badge.style.animation = '';
+                });
+            });
+        }
+
+        // Effet ripple sur les boutons
+        function addRippleEffect() {
+            document.querySelectorAll('.product-button, .modal-button, .filter-button').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.cssText = `
+                        width: ${size}px;
+                        height: ${size}px;
+                        left: ${x}px;
+                        top: ${y}px;
+                        position: absolute;
+                        border-radius: 50%;
+                        background: rgba(255, 255, 255, 0.6);
+                        transform: scale(0);
+                        animation: ripple 0.6s linear;
+                        pointer-events: none;
+                    `;
+                    
+                    this.style.position = 'relative';
+                    this.style.overflow = 'hidden';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => ripple.remove(), 600);
+                });
+            });
+        }
+
+        // Système de favoris (simulation)
+        function addFavoriteSystem() {
+            const products = document.querySelectorAll('.product-card');
+            products.forEach(product => {
+                const favoriteBtn = document.createElement('button');
+                favoriteBtn.innerHTML = '<i class="far fa-heart"></i>';
+                favoriteBtn.style.cssText = `
+                    position: absolute;
+                    top: 1rem;
+                    left: 1rem;
+                    background: rgba(255, 255, 255, 0.9);
+                    border: none;
+                    border-radius: 50%;
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    color: #e74c3c;
+                    font-size: 1.2rem;
+                `;
+                
+                favoriteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const icon = favoriteBtn.querySelector('i');
+                    if (icon.classList.contains('far')) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        favoriteBtn.style.background = '#e74c3c';
+                        favoriteBtn.style.color = 'white';
+                        favoriteBtn.style.animation = 'bounce 0.6s ease';
+                    } else {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                        favoriteBtn.style.background = 'rgba(255, 255, 255, 0.9)';
+                        favoriteBtn.style.color = '#e74c3c';
+                    }
+                });
+
+                favoriteBtn.addEventListener('mouseenter', () => {
+                    favoriteBtn.style.transform = 'scale(1.1)';
+                });
+
+                favoriteBtn.addEventListener('mouseleave', () => {
+                    favoriteBtn.style.transform = 'scale(1)';
+                });
+
+                product.appendChild(favoriteBtn);
+            });
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            animateProductsLoad();
+            addSearchEffect();
+            animateBadges();
+            addRippleEffect();
+            addFavoriteSystem();
+            
+            // Animation d'entrée
+            setTimeout(() => {
+                document.querySelectorAll('.product-card').forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.animation = `slideInUp 0.6s ease both`;
+                    }, index * 100);
+                });
+            }, 500);
+
+            // Préchargement des images (simulation)
+            const productImages = document.querySelectorAll('.product-image');
+            productImages.forEach((img, index) => {
+                setTimeout(() => {
+                    img.classList.remove('skeleton');
+                }, 1000 + index * 200);
+            });
+        });
+
+        // Effet parallax léger sur les particules
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const particles = document.querySelectorAll('.particle');
+            
+            particles.forEach((particle, index) => {
+                const speed = 0.2 + (index % 3) * 0.1;
+                const yPos = -(scrolled * speed);
+                particle.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+
+        // Mise à jour des particules lors du redimensionnement
+        window.addEventListener('resize', () => {
+            document.querySelectorAll('.particle').forEach(particle => {
+                particle.style.left = Math.random() * window.innerWidth + 'px';
+            });
+        });
+
+        // Notification de produit ajouté (simulation)
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 2rem;
+                background: linear-gradient(45deg, #27ae60, #2ecc71);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                box-shadow: 0 8px 25px rgba(39, 174, 96, 0.3);
+                z-index: 3000;
+                animation: slideInRight 0.4s ease;
+                max-width: 300px;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.4s ease';
+                setTimeout(() => notification.remove(), 400);
+            }, 3000);
+        }
+
+        // CSS pour les nouvelles animations
+        const additionalStyles = document.createElement('style');
+        additionalStyles.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes slideInRight {
+                from {
+                    opacity: 0;
+                    transform: translateX(100%);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateX(100%);
+                }
+            }
+            
+            .fab {
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+            
+            .product-card {
+                position: relative;
+            }
+        `;
+        document.head.appendChild(additionalStyles);
+    </script>
 </body>
 </html>
-
