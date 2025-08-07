@@ -3,150 +3,765 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galerie Produits</title>
+    <title>ColisExpress - Livraison Rapide</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        .tete {
-            background-color: antiquewhite;
-            height: 70px;
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header moderne avec glassmorphism */
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
-            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
         }
-        .galerie {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: auto;
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-        .produit {
-            background: white;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Menu burger pour mobile */
+        .burger {
+            display: none;
+            flex-direction: column;
             cursor: pointer;
-            transition: transform 0.3s;
-            text-align: center;
+            gap: 4px;
         }
-        .produit:hover {
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.1)"><polygon points="1000,100 1000,0 0,0 0,100"/></svg>');
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            animation: slideInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: slideInUp 1s ease 0.3s both;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 8px 25px rgba(238, 90, 36, 0.3);
+            animation: slideInUp 1s ease 0.6s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(238, 90, 36, 0.4);
+        }
+
+        /* Galerie de produits moderne */
+        .products-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
             transform: scale(1.05);
         }
-        .produit img {
-            width: 100%;
-            border-radius: 10px;
-            height: 150px;
-            object-fit: cover;
-        }
-        .prix {
+
+        .product-title {
+            font-size: 1.3rem;
             font-weight: bold;
-            color: #d9534f;
-            margin-top: 5px;
+            color: #333;
+            margin-bottom: 0.5rem;
         }
-        .popup {
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 1rem;
+        }
+
+        .product-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .product-button:hover {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Modal moderne */
+        .modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
             justify-content: center;
             align-items: center;
+            animation: fadeIn 0.3s ease;
         }
-        .popup-content {
+
+        .modal-content {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
             width: 90%;
-            max-width: 400px;
+            text-align: center;
+            position: relative;
+            animation: slideInScale 0.4s ease;
         }
-        .popup img {
+
+        .modal img {
             width: 100%;
-            border-radius: 10px;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1rem;
         }
-        .popup button {
-            margin-top: 10px;
-            padding: 10px;
-            background: green;
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-button {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .order-button {
+            background: #27ae60;
+            color: white;
+        }
+
+        .close-button {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .modal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Floating action button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
             color: white;
             border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
             cursor: pointer;
+            box-shadow: 0 8px 25px rgba(238, 90, 36, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
         }
-        .popup button:hover {
-            background: darkgreen;
+
+        .fab:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 35px rgba(238, 90, 36, 0.4);
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .burger {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* Particules flottantes */
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
         }
     </style>
 </head>
 <body>
-    <div class="tete">
-        <a href="livraison.html">Accueil</a>
-        <a href="contact.html">Nous contacter</a> 
-        <a href="NosVideo.html">Nos vidéos</a> 
-        <a href="HeurActiviter.html">Heures d'activité</a> 
-        <a href="declaration.html">Déclaration de colis</a> 
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="logo">
+            <i class="fas fa-shipping-fast"></i> ColisExpress
+        </div>
+        <nav>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-home"></i> Accueil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">
+                        <i class="fas fa-phone"></i> Contact
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#videos" class="nav-link">
+                        <i class="fas fa-video"></i> Nos Vidéos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#horaires" class="nav-link">
+                        <i class="fas fa-clock"></i> Horaires
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#declaration" class="nav-link">
+                        <i class="fas fa-package"></i> Déclaration
+                    </a>
+                </li>
+            </ul>
+            <div class="burger" id="burger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Livraison Rapide & Sécurisée</h1>
+        <p>Découvrez notre gamme de produits et profitez d'une livraison express dans toute la région</p>
+        <a href="#produits" class="cta-button">
+            <i class="fas fa-shopping-cart"></i> Voir nos Produits
+        </a>
+    </section>
+
+    <!-- Section Produits -->
+    <section class="products-section" id="produits">
+        <h2 class="section-title">
+            <i class="fas fa-star"></i> Nos Produits Populaires
+        </h2>
+        <div class="products-grid">
+            <!-- Support téléphone -->
+            <div class="product-card" onclick="showProduct('https://via.placeholder.com/400x300/667eea/ffffff?text=Support+Téléphone', 'Support Téléphone Premium', '1500 FCFA')">
+                <img src="https://via.placeholder.com/400x300/667eea/ffffff?text=Support+Téléphone" alt="Support Téléphone" class="product-image">
+                <h3 class="product-title">Support Téléphone Premium</h3>
+                <p class="product-price">1500 FCFA</p>
+                <button class="product-button">
+                    <i class="fas fa-eye"></i> Voir Détails
+                </button>
+            </div>
+
+            <!-- Souris sans fil -->
+            <div class="product-card" onclick="showProduct('https://via.placeholder.com/400x300/764ba2/ffffff?text=Souris+Sans+Fil', 'Souris Sans Fil Gaming', '2500 FCFA')">
+                <img src="https://via.placeholder.com/400x300/764ba2/ffffff?text=Souris+Sans+Fil" alt="Souris Sans Fil" class="product-image">
+                <h3 class="product-title">Souris Sans Fil Gaming</h3>
+                <p class="product-price">2500 FCFA</p>
+                <button class="product-button">
+                    <i class="fas fa-eye"></i> Voir Détails
+                </button>
+            </div>
+
+            <!-- Casque audio -->
+            <div class="product-card" onclick="showProduct('https://via.placeholder.com/400x300/e74c3c/ffffff?text=Casque+Audio', 'Casque Audio Bluetooth', '3500 FCFA')">
+                <img src="https://via.placeholder.com/400x300/e74c3c/ffffff?text=Casque+Audio" alt="Casque Audio" class="product-image">
+                <h3 class="product-title">Casque Audio Bluetooth</h3>
+                <p class="product-price">3500 FCFA</p>
+                <button class="product-button">
+                    <i class="fas fa-eye"></i> Voir Détails
+                </button>
+            </div>
+
+            <!-- Clavier gaming -->
+            <div class="product-card" onclick="showProduct('https://via.placeholder.com/400x300/27ae60/ffffff?text=Clavier+Gaming', 'Clavier Gaming RGB', '4500 FCFA')">
+                <img src="https://via.placeholder.com/400x300/27ae60/ffffff?text=Clavier+Gaming" alt="Clavier Gaming" class="product-image">
+                <h3 class="product-title">Clavier Gaming RGB</h3>
+                <p class="product-price">4500 FCFA</p>
+                <button class="product-button">
+                    <i class="fas fa-eye"></i> Voir Détails
+                </button>
+            </div>
+
+            <!-- Chargeur rapide -->
+            <div class="product-card" onclick="showProduct('https://via.placeholder.com/400x300/f39c12/ffffff?text=Chargeur+Rapide', 'Chargeur Rapide USB-C', '2000 FCFA')">
+                <img src="https://via.placeholder.com/400x300/f39c12/ffffff?text=Chargeur+Rapide" alt="Chargeur Rapide" class="product-image">
+                <h3 class="product-title">Chargeur Rapide USB-C</h3>
+                <p class="product-price">2000 FCFA</p>
+                <button class="product-button">
+                    <i class="fas fa-eye"></i> Voir Détails
+                </button>
+            </div>
+
+            <!-- Webcam HD -->
+            <div class="product-card" onclick="showProduct('https://via.placeholder.com/400x300/9b59b6/ffffff?text=Webcam+HD', 'Webcam HD 1080p', '3000 FCFA')">
+                <img src="https://via.placeholder.com/400x300/9b59b6/ffffff?text=Webcam+HD" alt="Webcam HD" class="product-image">
+                <h3 class="product-title">Webcam HD 1080p</h3>
+                <p class="product-price">3000 FCFA</p>
+                <button class="product-button">
+                    <i class="fas fa-eye"></i> Voir Détails
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <img id="modal-img" src="" alt="">
+            <h3 id="modal-title"></h3>
+            <p id="modal-price"></p>
+            <div class="modal-buttons">
+                <button class="modal-button order-button" onclick="redirectToOrder()">
+                    <i class="fas fa-shopping-cart"></i> Commander
+                </button>
+                <button class="modal-button close-button" onclick="closeModal()">
+                    <i class="fas fa-times"></i> Fermer
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="galerie">
-        <div class="produit" onclick="afficherProduit('pose1.jpg', 'Pose Téléphone', '1500 FCFA')">
-            <img src="pose1.jpg" alt="Pose Téléphone">
-            <div class="prix">1500 FCFA</div>
-        </div>
-        <div class="produit" onclick="afficherProduit('pose2.jpg', 'Produit 2', '1500 FCFA')">
-            <img src="pose2.jpg" alt="Produit 2">
-            <div class="prix">1500 FCFA</div>
-        </div>
-        <div class="produit" onclick="afficherProduit('pose3.jpg', 'Produit 3', '1500 FCFA')">
-            <img src="pose3.jpg" alt="Produit 3">
-            <div class="prix">1500 FCFA</div>
-        </div>
-        <div class="produit" onclick="afficherProduit('pose4.jpg', 'Produit 4', '1500 FCFA')">
-            <img src="pose4.jpg" alt="Produit 4">
-            <div class="prix">1500 FCFA</div>
-        </div>
-        <div class="produit" onclick="afficherProduit('pose5.jpg', 'Produit 5', '1500 FCFA')">
-            <img src="pose5.jpg" alt="Produit 5">
-            <div class="prix">1500 FCFA</div>
-        </div>
-        <div class="produit" onclick="afficherProduit('pose6.jpg', 'Produit 6', '1500 FCFA')">
-            <img src="pose6.jpg" alt="Produit 6">
-            <div class="prix">1500 FCFA</div>
-        </div>
-        <div class="produit" onclick="afficherProduit('pose7.jpg', 'Produit 7', '1500 FCFA')">
-            <img src="pose7.jpg" alt="Produit 7">
-            <div class="prix">1500 FCFA</div>
-        </div>
-    </div>
-    <div class="popup" id="popup">
-        <div class="popup-content">
-            <img id="popup-img" src="" alt="">
-            <h2 id="popup-titre"></h2>
-            <p id="popup-prix"></p>
-            <button onclick="redirigerCommande()">Lancer la commande</button>
-            <button onclick="fermerPopup()">Fermer</button>
-        </div>
-    </div>
+
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script>
-        function afficherProduit(image, titre, prix) {
-            document.getElementById("popup-img").src = image;
-            document.getElementById("popup-titre").innerText = titre;
-            document.getElementById("popup-prix").innerText = prix;
-            document.getElementById("popup").style.display = "flex";
+        // Variables globales
+        let currentProduct = {};
+
+        // Menu burger
+        const burger = document.getElementById('burger');
+        const navMenu = document.getElementById('nav-menu');
+
+        burger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            burger.classList.toggle('active');
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            lastScrollTop = scrollTop;
+
+            // Header background opacity
+            const opacity = Math.min(scrollTop / 100, 0.9);
+            header.style.background = `rgba(255, 255, 255, ${opacity * 0.1})`;
+        });
+
+        // Animation au scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Fonctions modal
+        function showProduct(image, title, price) {
+            currentProduct = { image, title, price };
+            document.getElementById('modal-img').src = image;
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-price').textContent = price;
+            document.getElementById('modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
-        function fermerPopup() {
-            document.getElementById("popup").style.display = "none";
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
-        function redirigerCommande() {
-            window.location.href = "declaration.html";
+
+        function redirectToOrder() {
+            // Ici vous pouvez rediriger vers votre page de commande
+            // window.location.href = 'declaration.html';
+            alert('Redirection vers la page de commande...\nProduit: ' + currentProduct.title + '\nPrix: ' + currentProduct.price);
+            closeModal();
         }
+
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Fermer modal en cliquant à l'extérieur
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('modal')) {
+                closeModal();
+            }
+        });
+
+        // Fermer modal avec Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Créer des particules flottantes
+        function createParticles() {
+            const particleCount = 20;
+            const body = document.body;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 10 + 5;
+                const left = Math.random() * window.innerWidth;
+                const delay = Math.random() * 6;
+                
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = left + 'px';
+                particle.style.top = Math.random() * window.innerHeight + 'px';
+                particle.style.animationDelay = delay + 's';
+                
+                body.appendChild(particle);
+            }
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            
+            // Animation de chargement
+            document.querySelectorAll('.product-card').forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.animation = `slideInUp 0.6s ease ${index * 0.1}s both`;
+                }, 500);
+            });
+        });
+
+        // Effet parallax léger
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.particle');
+            
+            parallaxElements.forEach((element, index) => {
+                const speed = 0.5 + (index % 3) * 0.2;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Animation des boutons
+        document.querySelectorAll('.product-button, .cta-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.pointerEvents = 'none';
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // CSS pour l'animation ripple
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+            
+            .product-button, .cta-button {
+                position: relative;
+                overflow: hidden;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
